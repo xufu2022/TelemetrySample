@@ -1,11 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36202.13 d17.14
+VisualStudioVersion = 17.14.36202.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{10002A0E-1BC4-4107-AFE4-5E7751A6FA3C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solutions Items", "Solutions Items", "{2BD894C7-3237-401D-9EBC-66EFC576A3FD}"
+	ProjectSection(SolutionItems) = preProject
+		grafana-datasources.yml = grafana-datasources.yml
+		otel-config.yaml = otel-config.yaml
+		prometheus.yml = prometheus.yml
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accounts", "src\Accounts\Accounts.csproj", "{A5C5D884-CD70-38B9-77CD-94AE76DCC2F7}"
 EndProject
@@ -34,8 +41,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing.Utilities", "tests\Testing.Utilities\Testing.Utilities.csproj", "{B18D917C-CC64-EE9E-0CD7-918F8000ED94}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solutions Items", "Solutions Items", "{2BD894C7-3237-401D-9EBC-66EFC576A3FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

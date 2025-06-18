@@ -37,8 +37,8 @@ builder.AddRabbitMq();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.AddHealthChecksConfiguration();
-builder.AddOpenTelemetry();
 
+builder.AddOpenTelemetry();
 
 var app = builder.Build();
 

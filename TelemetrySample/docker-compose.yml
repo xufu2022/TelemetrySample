@@ -1,4 +1,4 @@
-services:
+﻿services:
   clients.api:
     image: clients.api
     restart: always
@@ -11,9 +11,7 @@ services:
         ConnectionStrings__RabbitMq: amqp://guest:guest@rabbitmq:5672/
         RiskEvaluator__Url: http://risk.evaluator.service:8080
         Feature__PublishEventFailure: false
-        OTEL_DOTNET_AUTO_HOME: /otel-dotnet-auto
-        OTEL_SERVICE_NAME: "Clients.Api"
-        OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector:4318"
+        Jaeger: http://jaeger:4317
     ports:  
       - "8080:8080"
     depends_on:
@@ -80,6 +78,7 @@ services:
       dockerfile: src/RiskEvaluator/Dockerfile
     environment:
       Feature__PremiumMembershipFailure: false
+      Jaeger: http://jaeger:4317
     ports:
       - "8083:8080"
   reporting.service:
@@ -95,48 +94,8 @@ services:
     depends_on:
       - rabbitmq
         
-        
-  otel-collector:
-    image: otel/opentelemetry-collector-contrib:0.88.0
-    volumes:
-      - ./otel-config.yaml:/etc/otel/config.yaml
-      - ./log:/log/otel
-    command: --config /etc/otel/config.yaml
-    environment:
-      JAEGER_ENDPOINT: "jaeger:4317"
-      LOKI_ENDPOINT: "http://loki:3100/loki/api/v1/push"
-    ports:
-      - "8889:8889"   # Prometheus metrics exporter (scrape endpoint)
-      - "13133:13133" # health_check extension
-      - "55679:55679" # ZPages extension
-    depends_on:
-      - jaeger
-      - prometheus
-      - loki
-
   jaeger:
-    image: jaegertracing/all-in-one:1.50.0
+    image: jaegertracing/all-in-one:1.58.0
     ports:
       - "16686:16686" # Jaeger Web UI
-
-  prometheus:
-    image: prom/prometheus:v2.42.0
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    ports:
-      - "9090:9090"
-
-  loki:
-    image: grafana/loki:2.7.4
-    ports:
-      - "3100:3100"
-
-  grafana:
-    image: grafana/grafana:9.4.3
-    volumes:
-      - ./grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
-    environment:
-      GF_AUTH_ANONYMOUS_ENABLED: "true"
-      GF_AUTH_ANONYMOUS_ORG_ROLE: "Admin"
-    ports:
-      - "3000:3000"
+      - "4317:4317" # OTLP 

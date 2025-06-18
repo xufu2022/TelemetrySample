@@ -5,6 +5,8 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <UserSecretsId>fae21a19-5a73-403c-bf4b-d75d7ec19a5a</UserSecretsId>
+        <DockerfileContext>..\..</DockerfileContext>
     </PropertyGroup>
 
     <ItemGroup>
@@ -14,13 +16,14 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="AspNetCore.HealthChecks.Rabbitmq" Version="8.0.1"/>
-        <PackageReference Include="RabbitMQ.Client" Version="6.8.1"/>
+        <PackageReference Include="AspNetCore.HealthChecks.Rabbitmq" Version="8.0.1" />
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1-Preview.1" />
+        <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Accounts.Contracts\Accounts.Contracts.csproj"/>
-        <ProjectReference Include="..\Infrastructure.RabbitMQ\Infrastructure.RabbitMQ.csproj"/>
+        <ProjectReference Include="..\Accounts.Contracts\Accounts.Contracts.csproj" />
+        <ProjectReference Include="..\Infrastructure.RabbitMQ\Infrastructure.RabbitMQ.csproj" />
     </ItemGroup>
 
 </Project>

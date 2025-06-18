@@ -5,6 +5,8 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <UserSecretsId>79586c55-4ada-45e0-88e0-20eacd11fdd1</UserSecretsId>
+        <DockerfileContext>..\..</DockerfileContext>
     </PropertyGroup>
 
     <ItemGroup>
@@ -16,18 +18,19 @@
     <ItemGroup>
         <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="8.0.1" />
         <PackageReference Include="AspNetCore.HealthChecks.Rabbitmq" Version="8.0.1" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4"/>
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1-Preview.1" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="RabbitMQ.Client" Version="6.8.1"/>
+        <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\Accounts.Contracts\Accounts.Contracts.csproj" />
-        <ProjectReference Include="..\Clients.Contracts\Clients.Contracts.csproj"/>
+        <ProjectReference Include="..\Clients.Contracts\Clients.Contracts.csproj" />
         <ProjectReference Include="..\Infrastructure.RabbitMQ\Infrastructure.RabbitMQ.csproj" />
     </ItemGroup>
 
