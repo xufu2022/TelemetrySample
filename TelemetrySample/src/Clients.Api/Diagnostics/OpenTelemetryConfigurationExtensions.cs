@@ -25,13 +25,15 @@ public static class OpenTelemetryConfigurationExtensions
             .WithTracing(tracing =>
                 tracing
                     .AddAspNetCoreInstrumentation()
+                    .AddGrpcClientInstrumentation()
+                    .AddHttpClientInstrumentation()
                     .AddNpgsql()
                     .AddRedisInstrumentation()
-                    //.AddConsoleExporter());
-                    .AddOtlpExporter(options =>
+                    // .AddConsoleExporter()
+                    .AddOtlpExporter(options => 
                         options.Endpoint = new Uri(builder.Configuration.GetValue<string>("Jaeger")!))
-                    );
-
+                );
+        
         return builder;
     }
 }

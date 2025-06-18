@@ -25,7 +25,7 @@ public static class OpenTelemetryConfigurationExtensions
                 tracing
                     .AddAspNetCoreInstrumentation()
                     // .AddConsoleExporter()
-                    .AddOtlpExporter(options => 
+                    .AddOtlpExporter(options =>
                         options.Endpoint = new Uri(builder.Configuration.GetValue<string>("Jaeger")!))
             );
 
