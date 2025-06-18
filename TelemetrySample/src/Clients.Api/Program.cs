@@ -1,3 +1,5 @@
+using System.Reflection;
+using System.Text.Json.Serialization;
 using Clients.Api;
 using Clients.Api.Clients;
 using Clients.Api.Clients.Risk;
@@ -9,8 +11,6 @@ using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using RiskEvaluator;
 using StackExchange.Redis;
-using System.Reflection;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,11 +22,7 @@ builder.Services.Configure<Microsoft.AspNetCore.Mvc.JsonOptions>(options =>
 builder.Services.AddDbContext<ClientsDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("ClientsDb")));
 
-IConnectionMultiplexer? connectionMultiplexer = ConnectionMultiplexer.Connect(
-    builder.Configuration.GetConnectionString("ClientsCache")!);
-builder.Services.AddSingleton(connectionMultiplexer);
-builder.Services.AddStackExchangeRedisCache(options =>
-    options.ConnectionMultiplexerFactory = () => Task.FromResult(connectionMultiplexer));
+builder.AddRedis();
 
 builder.Services.AddSingleton<IRiskValidator, RiskValidator>();
 
@@ -41,24 +37,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.AddHealthChecksConfiguration();
 
-builder.Services.AddOpenTelemetry()
-    .ConfigureResource(resource => resource
-        .AddService("Clients.Api"
-            //,serviceNamespace: "cousr.otpentelemetry.clients.api",
-            //serviceInstanceId: Environment.MachineName
-        )
-        .AddAttributes(new[]
-        {
-            new KeyValuePair<string, object>("service.version",
-                Assembly.GetExecutingAssembly().GetName().Version!.ToString())
-        })
-    )
-    .WithTracing(tracing =>
-        tracing
-            .AddAspNetCoreInstrumentation()
-            .AddNpgsql()
-            .AddRedisInstrumentation()
-            .AddConsoleExporter());
+
 
 var app = builder.Build();
 

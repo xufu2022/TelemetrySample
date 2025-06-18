@@ -1,3 +1,4 @@
+using RiskEvaluator.Diagnostics;
 using RiskEvaluator.Services;
 using RiskEvaluator.Services.Rules;
 
@@ -14,6 +15,7 @@ builder.Services.AddSingleton<IRule, EmailRule>();
 builder.Services.AddSingleton<IRule, MembershipRule>(sp => new MembershipRule(
     builder.Configuration.GetValue<bool>("Feature:PremiumMembershipFailure")));
 
+builder.AddOpenTelemetry();
 var app = builder.Build();
 
 app.MapHealthChecks("/healthz");
